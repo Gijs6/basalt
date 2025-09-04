@@ -1,12 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+from functools import wraps
+from dotenv import load_dotenv
 
 from db.models import db, Entry
 
+load_dotenv(override=True)
+
+AUTH_PASSWORD = os.environ.get("AUTH_PASSWORD")
+
+if not AUTH_PASSWORD:
+    raise NameError("Please set an password.")
 
 app = Flask(__name__)
+
 app.secret_key = os.urandom(30)
+app.permanent_session_lifetime = timedelta(days=7)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///basalt.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -18,6 +28,41 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 with app.app_context():
     db.create_all()
+
+
+def login_excluded(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("logged_in"):
+            return redirect(url_for("index"))
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+@app.before_request
+def require_login():
+    allowed_routes = ["login", "static"]
+    if request.endpoint not in allowed_routes and not session.get("logged_in"):
+        return redirect(url_for("login"))
+
+
+@app.route("/login", methods=["GET", "POST"])
+@login_excluded
+def login():
+    if request.method == "POST":
+        password = request.form.get("password")
+        if AUTH_PASSWORD and password == AUTH_PASSWORD:
+            session["logged_in"] = True
+            session.permanent = True
+            return redirect(url_for("index"))
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 
 @app.route("/")

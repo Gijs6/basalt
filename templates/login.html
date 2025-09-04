@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login - Basalt</title>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='styles/skeleton.css') }}" />
+        <link rel="icon"
+              type="image/x-icon"
+              href="{{ url_for('static', filename='images/fav.ico') }}" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+              rel="stylesheet">
+        <script src="https://kit.fontawesome.com/4a94c21782.js"
+                crossorigin="anonymous"></script>
+        <style>
+            :root {
+                color-scheme: dark;
+                font-family: "Montserrat", sans-serif;
+            }
+
+            body {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 1.25em;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            input, button {
+                padding: 5px;
+                border-radius: 0;
+                border: 1px solid white;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Login</h1>
+            <form method="POST">
+                <input type="password"
+                       placeholder="Password"
+                       id="password"
+                       name="password"
+                       required>
+                <button type="submit">Login</button>
+            </form>
+        </main>
+    </body>
+</html>
