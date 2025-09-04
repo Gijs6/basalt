@@ -16,7 +16,6 @@
                         <a class="entry-container"
                            href="{{ url_for('view_edit_entry', entry_id=entry.id) }}">
                             <span class="entry-title">{{ entry.title }}</span>
-                            <code class="entry-id">{{ entry.id }}</code>
                             <span class="entry-metadata-timestamp">
                                 <time datetime="{{ entry.dt_made.isoformat() }}">
                                     {{ entry.dt_made.strftime("%Y-%m-%d %H:%M") }}
