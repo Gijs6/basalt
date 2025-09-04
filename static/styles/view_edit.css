@@ -1,0 +1,23 @@
+textarea {
+    resize: none;
+    width: 100%;
+    height: 60vh;
+}
+
+.entry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: stretch;
+    width: fit-content;
+    min-width: min(100%, 750px);
+}
+
+.entry-form-title {
+    width: 100%;
+}
+
+input[type="text"],
+textarea {
+    padding: 5px;
+}

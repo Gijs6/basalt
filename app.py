@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 
 from db.models import db, Entry
 
-load_dotenv(override=True)
+if __name__ == "__main__":
+    load_dotenv(override=True)
 
 AUTH_PASSWORD = os.environ.get("AUTH_PASSWORD")
 

@@ -10,7 +10,7 @@ deploy() {
 }
 
 deploy_rsync() {
-  rsync -avz --exclude='.git' --exclude='__pycache__' --exclude='.venv' --exclude='.env' . pya:/home/gijs3/basalt/
+  rsync -avz --exclude='.git' --exclude='__pycache__' --exclude='instance' --exclude='.venv' . pya:/home/gijs3/basalt/
   ssh pya "touch /var/www/basalt_gijs6_nl_wsgi.py"
 }
 
