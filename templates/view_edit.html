@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ entry.title }}{% endblock %}
+{% block extra_headers %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/view_edit.css') }}">
+{% endblock %}
+{% block content %}
+    <article class="entry-container">
+        <header class="entry-header">
+            <h1 class="entry-title">{{ entry.title }}</h1>
+        </header>
+        <section class="entry-editor">
+            <form class="entry-form"
+                  action="{{ url_for('update_entry', entry_id=entry.id) }}"
+                  method="post">
+                <div class="entry-form-field">
+                    <input class="entry-form-title"
+                           type="text"
+                           id="title"
+                           name="title"
+                           value="{{ entry.title }}"
+                           required>
+                </div>
+                <div class="entry-form-field">
+                    <textarea class="entry-form-content" id="content" name="content" required>{{ entry.content }}</textarea>
+                </div>
+                <div class="entry-form-actions">
+                    <button class="entry-form-submit" type="submit">Update entry</button>
+                </div>
+            </form>
+        </section>
+        <section class="entry-metadata">
+            <span class="entry-metadata-timestamp-created">
+                <span class="entry-metadata-timestamp-created-label">Created</span>
+                <time class="entry-metadata-timestamp-created-value"
+                      datetime="{{ entry.dt_made.isoformat() }}">
+                    {{ entry.dt_made.strftime("%Y-%m-%d %H:%M") }}
+                </time>
+            </span>
+            {% if entry.dt_updated != entry.dt_made %}
+                <span class="entry-metadata-timestamp-updated">
+                    <span class="entry-metadata-timestamp-updated-label">Updated</span>
+                    <time class="entry-metadata-timestamp-updated-value"
+                          datetime="{{ entry.dt_updated.isoformat() }}">
+                        {{ entry.dt_updated.strftime("%Y-%m-%d %H:%M") }}
+                    </time>
+                </span>
+            {% endif %}
+        </section>
+        <section class="entry-actions">
+            <form class="entry-actions-delete"
+                  action="{{ url_for('delete_entry', entry_id=entry.id) }}"
+                  method="post">
+                <button class="entry-actions-delete-button" type="submit">Delete entry</button>
+            </form>
+        </section>
+    </article>
+{% endblock %}

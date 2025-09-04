@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Server error{% endblock %}
+{% block extra_headers %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/500.css') }}">
+{% endblock %}
+{% block content %}
+    <section class="error-container">
+        <h1 class="error-title">Server error</h1>
+        <p class="error-description">Something went wrong on the server.</p>
+        <a class="error-action-link" href="{{ url_for("list_entries") }}">Back to entries</a>
+    </section>
+{% endblock %}

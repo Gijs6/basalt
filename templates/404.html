@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Page not found{% endblock %}
+{% block extra_headers %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/404.css') }}">
+{% endblock %}
+{% block content %}
+    <section class="error-container">
+        <h1 class="error-title">Page not found</h1>
+        <p class="error-description">The page you're looking for doesn't exist.</p>
+        <a class="error-action-link" href="{{ url_for("list_entries") }}">Back to entries</a>
+    </section>
+</section>
+{% endblock %}

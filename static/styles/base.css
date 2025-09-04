@@ -1,0 +1,57 @@
+:root {
+    color-scheme: dark;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+
+    background-color: var(--oc-gray-9);
+}
+
+a {
+    color: var(--oc-blue-3);
+}
+
+.base-header {
+    background: black;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    justify-content: space-between;
+    padding: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.base-navigation {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.base-navigation-item {
+    background: var(--oc-gray-8);
+    padding: 5px 7.5px;
+    align-content: center;
+    border: none;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.base-navigation-item:hover {
+    background: var(--oc-gray-9);
+}
+
+.base-navigation-brand {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.25em;
+}
+
+main {
+    padding: 15px;
+}

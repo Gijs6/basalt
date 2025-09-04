@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}All entries{% endblock %}
+{% block extra_headers %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/list.css') }}">
+{% endblock %}
+{% block content %}
+    <section class="entries-container">
+        <header class="entries-header">
+            <h1 class="entries-title">Entries</h1>
+        </header>
+        {% if entries %}
+            <ul class="entries-list">
+                {% for entry in entries %}
+                    <li class="entries-list-item">
+                        <a class="entry-container"
+                           href="{{ url_for('view_edit_entry', entry_id=entry.id) }}">
+                            <span class="entry-title">{{ entry.title }}</span>
+                            <code class="entry-id">{{ entry.id }}</code>
+                            <span class="entry-metadata-timestamp">
+                                <time datetime="{{ entry.dt_made.isoformat() }}">
+                                    {{ entry.dt_made.strftime("%Y-%m-%d %H:%M") }}
+                                </time>
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span class="entries-empty">No entries found.</span>
+        {% endif %}
+    </section>
+{% endblock %}

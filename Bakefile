@@ -1,0 +1,29 @@
+#!/bin/bash
+
+serve() {
+  .venv/bin/python app.py
+}
+
+deploy() {
+  git push
+  ssh pya "chmod +x /home/gijs3/basalt/deploy.sh && /home/gijs3/basalt/deploy.sh"
+}
+
+deploy_rsync() {
+  rsync -avz --exclude='.git' --exclude='__pycache__' --exclude='.venv' --exclude='.env' . pya:/home/gijs3/basalt/
+  ssh pya "touch /var/www/basalt_gijs6_nl_wsgi.py"
+}
+
+force_deploy() {
+  deploy
+  source .env
+  curl -X POST "https://eu.pythonanywhere.com/api/v0/user/gijs3/webapps/basalt.gijs6.nl/reload/" -H "Authorization: Token $API_TOKEN"
+}
+
+format() {
+  ruff format . || true
+  prettier --write "**/*.{css,js}" || true
+  prettier --write "**/*.json" || true
+  djlint . --reformat || true
+  markdownlint --fix "**/*.md" || true
+}
